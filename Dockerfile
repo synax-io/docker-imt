@@ -16,6 +16,8 @@ ENV HELM_VERSION="v2.13.0"
 
 ENV KOPS_VERSION="1.11.0"
 
+ENV STERN_VERSION="1.10.0"
+
 ENV ANSIBLE_VERSION="2.7.8"
 
 ENV AWS_CLI_VERSION="1.16.116"
@@ -76,6 +78,10 @@ RUN wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-
     && chmod +x /usr/local/bin/helm \
     && helm init --client-only
 
+# Install stern
+RUN wget -q https://github.com/wercker/stern/releases/download/${STERN_VERSION}/stern_linux_amd64 -O /usr/local/bin/stern \
+    && chmod +x /usr/local/bin/stern
+
 # Install kops
 RUN wget -q https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 -O /usr/local/bin/kops \
     && chmod +x /usr/local/bin/kops
@@ -83,7 +89,9 @@ RUN wget -q https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}
 # Install Summon and AWS Provider
 RUN wget -q https://storage.googleapis.com/summon/summon -O /usr/local/bin/summon \
     && mkdir /usr/local/lib/summon \
-    && wget -q https://storage.googleapis.com/summon/summon-aws-secrets -O /usr/local/lib/summon/summon-aws-secrets
+    && chmod +x /usr/local/lib/summon \
+    && wget -q https://storage.googleapis.com/summon/summon-aws-secrets -O /usr/local/lib/summon/summon-aws-secrets \
+    && chmod +x /usr/local/lib/summon/summon-aws-secrets
 
 # install jfrog CLI
 RUN wget -q https://bintray.com/jfrog/jfrog-cli-go/download_file?file_path=${JFROG_CLI_VERSION}%2Fjfrog-cli-linux-amd64%2Fjfrog -O /usr/local/bin/jfrog \
