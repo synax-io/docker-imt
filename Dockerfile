@@ -88,8 +88,8 @@ RUN wget -q https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}
     
 # Install Summon and AWS Provider
 RUN wget -q https://storage.googleapis.com/summon/summon -O /usr/local/bin/summon \
+    && chmod +x /usr/local/bin/summon \
     && mkdir /usr/local/lib/summon \
-    && chmod +x /usr/local/lib/summon \
     && wget -q https://storage.googleapis.com/summon/summon-aws-secrets -O /usr/local/lib/summon/summon-aws-secrets \
     && chmod +x /usr/local/lib/summon/summon-aws-secrets
 
