@@ -93,6 +93,10 @@ RUN wget -q https://storage.googleapis.com/summon/summon -O /usr/local/bin/summo
     && wget -q https://storage.googleapis.com/summon/summon-aws-secrets -O /usr/local/lib/summon/summon-aws-secrets \
     && chmod +x /usr/local/lib/summon/summon-aws-secrets
 
+# Install eksctl
+RUN wget -q "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" -O /usr/local/bin/eksctl \
+    && chmod +x /usr/local/bin/eksctl
+
 # install jfrog CLI
 RUN wget -q https://bintray.com/jfrog/jfrog-cli-go/download_file?file_path=${JFROG_CLI_VERSION}%2Fjfrog-cli-linux-amd64%2Fjfrog -O /usr/local/bin/jfrog \
     && chmod +x /usr/local/bin/jfrog
