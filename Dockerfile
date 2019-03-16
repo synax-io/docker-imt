@@ -7,6 +7,8 @@ ENV TERRAFORM_SHA256SUM=d3bb9c958c56a178528ef3b18e27a24cfd96c9aa6da3c7b6dc8d7dd8
 
 ENV TERRAGRUNT_VERSION="v0.18.1"
 
+ENV EKSCTL_VERSION="0.1.25"
+
 # Note: Latest version of kubectl may be found at:
 # https://aur.archlinux.org/packages/kubectl-bin/
 ENV KUBECTL_VERSION="v1.13.4"
@@ -94,7 +96,7 @@ RUN wget -q https://storage.googleapis.com/summon/summon -O /usr/local/bin/summo
     && chmod +x /usr/local/lib/summon/summon-aws-secrets
 
 # Install eksctl
-RUN wget -q "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" -O /usr/local/bin/eksctl \
+RUN wget -q https://github.com/weaveworks/eksctl/releases/download/${EKSCTL_VERSION}/eksctl_linux_amd64.tar.gz -O /usr/local/bin/eksctl \
     && chmod +x /usr/local/bin/eksctl
 
 # install jfrog CLI
