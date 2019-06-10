@@ -1,6 +1,6 @@
 FROM centos:7.6.1810
 
-ENV GOLANG_VERSION="1.12.2"
+ENV GOLANG_VERSION="1.12.5"
 
 ENV TERRAFORM_VERSION="0.11.13"
 ENV TERRAFORM_SHA256SUM=5925cd4d81e7d8f42a0054df2aafd66e2ab7408dbed2bd748f0022cfe592f8d2
@@ -11,16 +11,18 @@ ENV OPENSHIFT_INSTALLER_VERSION="v0.15.0"
 
 ENV OPENSHIFT_CLI_VERSION="4.0.22"
 
-ENV ARGOCD_VERSION="v0.12.0"
+ENV ARGOCD_VERSION="v1.0.1"
+
+ENV ARGO_VERSION="v2.3.0"
 
 ENV EKSCTL_VERSION="0.1.28"
 
 # Note: Latest version of kubectl may be found at:
 # https://aur.archlinux.org/packages/kubectl-bin/
-ENV KUBECTL_VERSION="v1.12.6"
+ENV KUBECTL_VERSION="v1.14.2"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v2.13.1"
+ENV HELM_VERSION="v2.14.0"
 
 ENV KOPS_VERSION="1.11.1"
 
@@ -119,9 +121,13 @@ RUN wget -q https://github.com/weaveworks/eksctl/releases/download/${EKSCTL_VERS
 RUN wget -q https://bintray.com/jfrog/jfrog-cli-go/download_file?file_path=${JFROG_CLI_VERSION}%2Fjfrog-cli-linux-amd64%2Fjfrog -O /usr/local/bin/jfrog \
     && chmod +x /usr/local/bin/jfrog
 
-# Install ArgoCLI 
-RUN wget -q https://github.com/argoproj/argo-cd/releases/download/v0.12.0/argocd-linux-amd64 -O /usr/local/bin/argocd \
+# Install ArgoCD CLI 
+RUN wget -q https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64 -O /usr/local/bin/argocd \
     && chmod +x /usr/local/bin/argocd
+
+# Install Argo CLI
+RUN wget -q https://github.com/argoproj/argo/releases/download/${ARGO_VERSION}/argo-linux-amd64 -O /usr/local/bin/argo \
+    && chmod +x /usr/local/bin/argo
 
 WORKDIR /config
 
