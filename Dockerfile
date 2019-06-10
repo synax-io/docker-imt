@@ -45,7 +45,6 @@ RUN yum update -y
 RUN yum install -y git \
                    unzip \
                    wget \
-                   docker \
                    jq \
                    vim \
                    tmux \ 
@@ -54,6 +53,11 @@ RUN yum install -y git \
     && yum install -y python36u python36u-libs python36u-devel python36u-pip \
     && pip3.6 install --upgrade pip \
     && yum clean all
+
+# Install Docker
+RUN yum install -y yum-utils device-mapper-persistent-data lvm2 \
+    && yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
+    && yum install docker-ce docker-ce-cli containerd.io
 
 # Install AWS CLI
 RUN pip3.6 install awscli==${AWS_CLI_VERSION}
